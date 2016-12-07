@@ -1,5 +1,5 @@
-# Running MSBlender for an experiment with multiple mxZMLs
-
+# Wrapper for running MSBlender for an experiment with multiple mxZMLs
+### On TACC or not TACC 
 
 ## Setup experiment directory
 
@@ -10,7 +10,9 @@ Start with a folder for each experiment containing a folder called mzXML contain
 #### Structure of an experiment directory for experiment Ce1104
 
 Ce1104_example
+
 -----mzXML
+
 -----DB
 
 
@@ -70,11 +72,16 @@ This goes in /DB folder of each experiment
 Can also format ahead of time for a proteome and just cp in to the DB folder
 
 ##### Add on contaminants and reverse proteome
+
+```
 $ bash /project/cmcwhite/scripts/MS1-quant-pipeline/setup/setup_database_only.sh uniprot-triticum%3AUP000019116.fasta
+```
 
 ##### Generate blast formatted db 
-$ formatdb -i uniprot-triticum%3AUP000019116_contam.combined.fasta
 
+```
+$ formatdb -i uniprot-triticum%3AUP000019116_contam.combined.fasta
+```
 
 
 
