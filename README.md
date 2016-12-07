@@ -12,9 +12,13 @@ Start with a folder for each experiment containing a folder called mzXML contain
 Ce1104_example
 
 -----mzXML
+
 ---------- WAN1100427_OT2_Celegans_HCW_P1A01.mzXML
+
 ---------- WAN1100427_OT2_Celegans_HCW_P1A02.mzXML
+
 -----DB
+
 ---------- uniprot-proteome%3AUP000001940_caeel_contam.combined.fasta
 
 
