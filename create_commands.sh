@@ -14,7 +14,7 @@ rm -f $EXP_COMMANDS
 for n in $EXP_ID/mzXML/*.mzXML
 
 do echo $n
-echo "bash $WORK/MS1-quant-pipeline/runMs2.sh $SCRATCH/metazoans/$n $PROTEOME $SCRATCH/metazoans/$EXP_ID/working $SCRATCH/metazoans/$EXP_ID/output" >> $EXP_COMMANDS
+echo "bash $WORK/MSblender/runMs2.sh $SCRATCH/metazoans/$n $PROTEOME $SCRATCH/metazoans/$EXP_ID/working $SCRATCH/metazoans/$EXP_ID/output" >> $EXP_COMMANDS
 
 done
 done < $exp_list
