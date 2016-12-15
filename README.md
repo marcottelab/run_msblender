@@ -36,17 +36,17 @@ Ce1104_example
 #### Create additional folders in the experiment directory
 
 ```
-$ bash create_directory.sh exp_list_example.txt 
+$ bash scripts/create_directory.sh $SCRATCH/metazoans/exp_list_example.txt
+
 ```
 
 #### Format msblender commands for each mzXML in the experiments
 
-Need to manually change location of MS1-quant-pipeline directory in create_commands.sh
-
 Creates file for each experiment called [experimentID]_commands.txt
 
 ```
-$ bash create_commands.sh exp_list_example.txt
+$ bash scripts/create_commands.sh exp_list_example.txt $WORK/MSblender/runMS2.sh $HOME/searchgui
+
 ```
 
 #### Create the TACC job submission script to process the commands in parallel
@@ -57,7 +57,8 @@ Creates file for each experiment called [experimentid]_run_MS.sbatch
 
 
 ```
-$ bash create_sbatch.sh exp_list_example.txt
+$ bash scripts/create_sbatch.sh exp_list_example.txt
+
 $ sbatch Ce_1104_example_run_MS.sbatch
 
 ```
@@ -80,7 +81,7 @@ Can also format ahead of time for a proteome and just cp in to the DB folder
 ##### Add on contaminants and reverse proteome
 
 ```
-$ bash /project/cmcwhite/scripts/MS1-quant-pipeline/setup/setup_database_only.sh uniprot-triticum%3AUP000019116.fasta
+$ bash $WORK/MSblender/setup/setup_database_only.sh uniprot-triticum%3AUP000019116.fasta
 ```
 
 ##### Generate blast formatted db 
