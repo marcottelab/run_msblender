@@ -1,6 +1,6 @@
 
 
-bash scripts/create_directory.sh $SCRATCH/metazoans/exp_list_example.txt
+bash scripts/create_directory.sh $SCRATCH/run_msblender/exp_list_example.txt
 
 #Here, make sure mzXMLS are in the experiment mzxml folder,  and the formatted fasta database in in the experiment DB folder
 #exp_name
@@ -9,10 +9,10 @@ bash scripts/create_directory.sh $SCRATCH/metazoans/exp_list_example.txt
 
 
 
-bash scripts/create_commands.sh $SCRATCH/metazoans/exp_list_example.txt $WORK/MSblender/runMS2.sh $HOME/searchgui
+bash scripts/create_commands.sh $SCRATCH/run_msblender/exp_list_example.txt /work/03491/cmcwhite/MSblender/runMS2.sh $HOME/searchgui
 
 
-bash scripts/create_sbatch.sh $SCRATCH/metazoans/exp_list_example.txt
+bash scripts/create_sbatch.sh $SCRATCH/run_msblender/exp_list_example.txt
 
 
 
