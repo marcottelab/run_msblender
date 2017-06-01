@@ -2,7 +2,7 @@
 #SBATCH -J runEXPID      # job name
 #SBATCH -o runEXPID.o%j       # output and error file name (%j expands to jobID)
 #SBATCH -n 35              # total number of mpi tasks requested
-#SBATCH -p development     # queue (partition) -- normal, development, etc.
+#SBATCH -p normal     # queue (partition) -- normal, development, etc.
 #SBATCH -c 16 		# number of CPUs/task
 #SBATCH -t 6:00:00        # run time (hh:mm:ss) - 1.5 hours
 #SBATCH --mail-user=claire.mcwhite@utexas.edu
@@ -12,12 +12,11 @@
 
 module load python/2.7.12
 
-export CONTROL_FILE=EXPID_COMMANDS.txt
+export LAUNCHER_JOB_FILE=EXPID_COMMANDS.txt
 
 ### Nothing needs to change below here
 module load launcher;
-export EXECUTABLE=$TACC_LAUNCHER_DIR/init_launcher
-export WORKDIR=.
-cd $WORKDIR;
-$TACC_LAUNCHER_DIR/paramrun $EXECUTABLE $CONTROL_FILE;
+export EXECUTABLE=$LAUNCHER_DIR/init_launcher
+export LAUNCHER_WORKDIR=$( pwd )
+$LAUNCHER_DIR/paramrun $EXECUTABLE $LAUNCHER_JOB_FILE;
 
