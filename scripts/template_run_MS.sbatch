@@ -11,6 +11,7 @@
 #SBATCH -A A-cm10          # Specify allocation to charge against
 
 module load python/2.7.12
+module load gsl/2.2.1
 
 export LAUNCHER_JOB_FILE=EXPID_COMMANDS.txt
 
