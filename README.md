@@ -1,4 +1,7 @@
 # Wrapper for running MSBlender for an experiment with multiple mxZMLs
+
+## Works with the MSBlender branch MSblender_restructure
+
 ### On TACC or not TACC 
 
 ## Setup experiment directory
