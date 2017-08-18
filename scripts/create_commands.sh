@@ -38,7 +38,6 @@ do
     #This is echoing the text for one commands to the COMMANDS script
     for mzxml_file in ${mzxml_dir}/*.mzXML
     do 
-        echo $n
         echo "bash $runscript $mzxml_file $proteome $working_dir $output_dir $searchgui_dir" >> $EXP_COMMANDS
 
         #Example hard coded
