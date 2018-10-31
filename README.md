@@ -1,6 +1,12 @@
 # Wrapper for running MSBlender for an experiment with multiple mxZMLs
 
-## Works with the MSBlender branch MSblender_restructure
+## Use the MSBlender branch consistent_search_params
+
+git clone https://github.com/marcottelab/MSblender.git
+
+git checkout consistent_search_params
+
+
 
 ### On TACC or not TACC 
 
