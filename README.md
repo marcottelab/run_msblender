@@ -17,7 +17,7 @@ git checkout nextflow
 ```
 
 ## Download msblender image
-###TACC specific
+### TACC specific
 
 Need to load singularity and pulling on login node runs into memory issues so do on compute node
 
@@ -45,14 +45,14 @@ nextflow run msblender.nf -with-singularity /work/02609/kdrew/singularity_cache/
 Note: update path to singularity image in cache
 
 
-##Troubleshooting
+## Troubleshooting
 
-###Python ImportError: undefined symbol 
+### Python ImportError: undefined symbol 
 Singularity automounts home directory which may have installations of python libraries that are being used instead of image's install. 
 
 Add ```singularity.runOptions = "--home /tmp"``` to nextflow.config
 
-###ERROR  : Home directory is not owned by calling user: /tmp
+### ERROR  : Home directory is not owned by calling user: /tmp
 Related to above, change /tmp to a directory owned by user
 
 
