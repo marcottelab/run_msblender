@@ -10,6 +10,10 @@ params.mzxml_files = "*mzXML"
 
 params.results_path = "./results"
 params.elut_file = 'elut'
+params.cluster_file = 'cluster.xlsx'
+params.cluster_metric = 'pearson'
+params.cluster_method = 'average'
+params.annotations_file = 'annotations.tab'
 
 combined_contam_file = 'combined_contam_file.fasta'
 
@@ -91,6 +95,22 @@ process group2elut {
 
 }
 
+process clusterElution {
+
+    publishDir "${params.results_path}"
+
+    input:
+    file elut_file1 from elut_file
+
+    output:
+    file "${params.cluster_file}" into cluster_file
+    stdout result4
+
+    """
+    python ${params.protein_complex_maps}/preprocessing_util/elutionCluster.py --input_elutions ${elut_file1} --outfile ${params.cluster_file} --hclust_metric ${params.cluster_metric} --hclust_method ${params.cluster_method} --path_to_annotations ${params.annotations_file} 
+    """
+
+}
 
 result.subscribe {
     println it
@@ -101,6 +121,10 @@ result2.subscribe {
 }
 
 result3.subscribe {
+    println it
+}
+
+result4.subscribe {
     println it
 }
 
