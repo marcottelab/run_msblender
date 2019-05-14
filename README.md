@@ -1,4 +1,4 @@
-# Nextflow script for running MSBlender for an experiment with multiple mxZMLs
+# Nextflow script for running MSBlender for an experiment with multiple mzXMLs
 
 ## Install nextflow and update path
 ```
