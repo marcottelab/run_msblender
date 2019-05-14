@@ -34,7 +34,9 @@ singularity pull docker://kdrew/msblender
 ## Update nextflow.config
 
 fasta_file : update with location of your proteome file (recommended to use uniprot proteome for species under investigation)
+
 mzxml_files : location of mzXML mass spec files
+
 elut_file : filename of resulting elution formatted file
 
 ## Run msblender nextflow command
