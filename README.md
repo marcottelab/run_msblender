@@ -1,108 +1,56 @@
-# Wrapper for running MSBlender for an experiment with multiple mxZMLs
+# Nextflow script for running MSBlender for an experiment with multiple mxZMLs
 
-## Use the MSBlender branch consistent_search_params
-
-git clone https://github.com/marcottelab/MSblender.git
-
-git checkout consistent_search_params
-
-
-
-### On TACC or not TACC 
-
-## Setup experiment directory
-
-Start with a folder for each experiment containing a folder called mzXML containing its mzxml files and a folder called DB containing formatted fasta database. See below for how to make a formatted fasta
-
-
-
-#### Structure of an experiment directory for experiment Ce1104
-
-Ce1104_example
-
------mzXML
-
----------- WAN1100427_OT2_Celegans_HCW_P1A01.mzXML
-
----------- WAN1100427_OT2_Celegans_HCW_P1A02.mzXML
-
------DB
-
----------- uniprot-proteome%3AUP000001940_caeel_contam.combined.fasta
-
-
-Write each experiment you want to process as one line in a list of experiment IDs
-
-This can be a one line file with one experiment or multiline with multiple experiments
-
-For example:
-
+## Install nextflow and update path
 ```
-$ cat exp_list_example.txt
-Ce1104_example
+wget -qO- https://get.nextflow.io | bash
+export PATH=$PATH:`pwd`
 ```
 
-#### Create additional folders in the experiment directory
-
+## Clone run_msblender (this) repository
 ```
-$ bash scripts/create_directory.sh $SCRATCH/metazoans/exp_list_example.txt
-
+git clone https://github.com/marcottelab/run_msblender.git
 ```
 
-#### Format msblender commands for each mzXML in the experiments
-
-Creates file for each experiment called [experimentID]_commands.txt
-
+## Checkout nextflow branch
 ```
-$ bash scripts/create_commands.sh exp_list_example.txt $WORK/MSblender/runMS2.sh $HOME/searchgui
-
+git checkout nextflow
 ```
 
-#### Create the TACC job submission script to process the commands in parallel
+## Download msblender image
+###TACC specific
 
-Need to manually edit header in template_run_MS.sbatch
-
-Creates file for each experiment called [experimentid]_run_MS.sbatch
-
+Need to load singularity and pulling on login node runs into memory issues so do on compute node
 
 ```
-$ bash scripts/create_sbatch.sh exp_list_example.txt
-
-$ sbatch Ce_1104_example_run_MS.sbatch
-
+module load tacc-singularity
+idev -p development -A PPI_modeling -m 120
 ```
 
-#### If not on TACC, process the commands with parallel
-
+### Pull image from dockerhub and store in cache
 ```
-$ parallel -j4 :::: Ce1104_COMMANDS.txt
-```
-
-
-
-
-### Format fasta DB
-
-This goes in /DB folder of each experiment
-
-Can also format ahead of time for a proteome and just cp in to the DB folder
-
-##### Add on contaminants and reverse proteome
-
-```
-$ bash $WORK/MSblender/setup/setup_database_only.sh uniprot-triticum%3AUP000019116.fasta
+singularity pull docker://kdrew/msblender
 ```
 
-##### Generate blast formatted db 
+## Update nextflow.config
 
-```
-$ formatdb -i uniprot-triticum%3AUP000019116_contam.combined.fasta
-```
+fasta_file : update with location of your proteome file (recommended to use uniprot proteome for species under investigation)
+mzxml_files : location of mzXML mass spec files
+elut_file : filename of resulting elution formatted file
+
+## Run msblender nextflow command
+nextflow run msblender.nf -with-singularity /work/02609/kdrew/singularity_cache/msblender.simg --results_path $PWD/results/ &> output
+
+Note: update path to singularity image in cache
 
 
+##Troubleshooting
 
+###Python ImportError: undefined symbol 
+Singularity automounts home directory which may have installations of python libraries that are being used instead of image's install. 
 
+Add ```singularity.runOptions = "--home /tmp"``` to nextflow.config
 
-
+###ERROR  : Home directory is not owned by calling user: /tmp
+Related to above, change /tmp to a directory owned by user
 
 
