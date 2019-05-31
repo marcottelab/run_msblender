@@ -50,7 +50,7 @@ process formatDatabase {
 
 process runMSBlender {
     tag "$mzXMLID"
-    publishDir "${params.results_path}/$mzXMLID"
+    publishDir "${params.results_path}/$mzXMLID", mode: 'copy'
 
     
     input:
@@ -75,7 +75,7 @@ process runMSBlender {
 
 process group2elut {
 
-    publishDir "${params.results_path}"
+    publishDir "${params.results_path}", mode: 'copy'
 
     input:
     file group_file_list from group_files.collect()
