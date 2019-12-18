@@ -19,6 +19,7 @@ combined_contam_file = 'combined_contam_file.fasta'
 
 fastaFile = file(params.fasta_file)
 contamFile = file(params.contam_file)
+annotationFile = file(params.annotations_file)
 
 mzxmls = Channel.fromPath(params.mzxml_files).map{ file -> tuple(file.baseName, file)}
 
@@ -101,13 +102,14 @@ process clusterElution {
 
     input:
     file elut_file1 from elut_file
+    file annotations from annotationFile
 
     output:
     file "${params.cluster_file}" into cluster_file
     stdout result4
 
     """
-    python ${params.protein_complex_maps}/preprocessing_util/elutionCluster.py --input_elutions ${elut_file1} --outfile ${params.cluster_file} --hclust_metric ${params.cluster_metric} --hclust_method ${params.cluster_method} --path_to_annotations ${params.annotations_file} 
+    python ${params.protein_complex_maps}/preprocessing_util/elutionCluster.py --input_elutions ${elut_file1} --outfile ${params.cluster_file} --hclust_metric ${params.cluster_metric} --hclust_method ${params.cluster_method} --path_to_annotations ${annotations} 
     """
 
 }
